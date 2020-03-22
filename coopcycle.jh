@@ -1,0 +1,107 @@
+// =================================
+// Entities
+// =================================
+
+enum Role {
+	MERCHANT, CUSTOMER, DELIVERY, SYSTEM_ADMIN, COOPERATIVE_ADMIN
+}
+
+/**
+ * The User entity.
+ */
+entity User {
+    login String required
+    password String required
+}
+
+/**
+ * The Restaurant entity.
+ */
+entity Restaurant {
+      name String required
+      description String
+}
+
+/**
+ * The Cooperative entity.
+ */
+entity Cooperative {
+    name String
+    area String
+}
+
+enum BasketState {
+    UNFINISHED, VALIDATED, PAID
+}
+
+/**
+ * The Basket entity.
+ */
+entity Basket {
+    basketState BasketState required
+}
+
+enum Disponibility {
+    AVAILABLE, UNAVAILABLE
+}
+
+/**
+ * The Product entity.
+ */
+entity Product {
+    price BigDecimal required min(0)
+    disponibility Disponibility
+    description String
+}
+
+enum PaymentMethod {
+    CB, BITCOIN, PAYPAL, IZLY
+}
+
+/**
+ * The Payment entity.
+ */
+entity Payment {
+    paymentMethod PaymentMethod required
+}
+
+/**
+ * The Order entity.
+ */
+entity Order {
+	orderState OrderState required
+	deliveryTime Instant required
+}
+
+enum OrderState {
+	PENDING, CANCELLED, DELIVERED
+}
+
+
+// =================================
+// Relations
+// =================================
+
+relationship ManyToMany {
+	Cooperative{restaurant} to Restaurant{cooperative}
+}
+
+relationship ManyToOne {
+	User{role required} to Role
+	Restaurant{owner} to User{restaurant}
+    Product{restaurant} to Restaurant
+    Basket{customer} to User{basket}
+    Order{restaurant} to Restaurant{order}
+	Order{customer} to User{order}
+    Order{payment} to Payment
+}
+
+relationship OneToMany {
+	Basket{product} to Product
+	User{restaurant} to Restaurant{owner}
+}
+
+relationship OneToOne {
+    Basket{user} to User{basket}
+    Basket{order} to Order{basket}
+}
