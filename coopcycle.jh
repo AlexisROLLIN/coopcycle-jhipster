@@ -10,8 +10,9 @@ enum Role {
  * The User entity.
  */
 entity User {
-    login String required
-    password String required
+	login String required
+	password String required
+	role Role required
 }
 
 /**
@@ -87,21 +88,15 @@ relationship ManyToMany {
 }
 
 relationship ManyToOne {
-	User{role required} to Role
-	Restaurant{owner} to User{restaurant}
-    Product{restaurant} to Restaurant
-    Basket{customer} to User{basket}
-    Order{restaurant} to Restaurant{order}
-	Order{customer} to User{order}
-    Order{payment} to Payment
-}
-
-relationship OneToMany {
-	Basket{product} to Product
-	User{restaurant} to Restaurant{owner}
+	Restaurant{owner} to User
+	Product{restaurant} to Restaurant
+	Basket{user} to User
+	Order{restaurant} to Restaurant
+	Order{user} to User
+	Order{payment required} to Payment
+	Product{basket} to Basket
 }
 
 relationship OneToOne {
-    Basket{user} to User{basket}
-    Basket{order} to Order{basket}
+    Basket{order} to Order{Basket}
 }

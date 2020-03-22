@@ -1,0 +1,10 @@
+{
+  "coopcycleApp": {
+    "OrderState": {
+      "null": "",
+      "PENDING": "PENDING",
+      "CANCELLED": "CANCELLED",
+      "DELIVERED": "DELIVERED"
+    }
+  }
+}

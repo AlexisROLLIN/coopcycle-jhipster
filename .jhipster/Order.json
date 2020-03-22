@@ -1,0 +1,63 @@
+{
+    "name": "Order",
+    "fields": [
+        {
+            "fieldName": "orderState",
+            "fieldType": "OrderState",
+            "fieldValues": "PENDING,CANCELLED,DELIVERED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "deliveryTime",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "order",
+            "relationshipName": "restaurant",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "order",
+            "relationshipName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "payment",
+            "otherEntityRelationshipName": "order",
+            "relationshipValidateRules": "required",
+            "relationshipName": "payment",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "basket",
+            "otherEntityRelationshipName": "order",
+            "relationshipName": "basket",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200322141400",
+    "javadoc": "The Order entity.",
+    "entityTableName": "order",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
